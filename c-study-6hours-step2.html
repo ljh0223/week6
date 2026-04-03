@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C Study Step 2 - 6 Hours</title>
+<style>
+  :root {
+    --bg: #f3efe6;
+    --paper: #fffdf8;
+    --ink: #1c2430;
+    --muted: #5f6671;
+    --accent: #b85c38;
+    --accent-soft: #f3d8c8;
+    --line: #d6cbbd;
+    --code: #f6f1e8;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top left, #f6e6d8 0, transparent 28%),
+      linear-gradient(180deg, #f7f1e6 0%, #ece5d8 100%);
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 18mm 16mm;
+    background: var(--paper);
+    page-break-after: always;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  h1, h2, h3 {
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: 30px;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin-top: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin-top: 16px;
+    color: var(--accent);
+  }
+
+  p {
+    margin: 0 0 10px;
+    font-size: 14px;
+  }
+
+  ul, ol {
+    margin: 8px 0 12px 22px;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  li {
+    margin: 6px 0;
+  }
+
+  .hero {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(184, 92, 56, 0.08), rgba(255, 255, 255, 0.96));
+  }
+
+  .eyebrow {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .card {
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fffaf3;
+  }
+
+  .timeline {
+    border-left: 4px solid var(--accent-soft);
+    padding-left: 16px;
+    margin-top: 14px;
+  }
+
+  .slot {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .slot:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .hour {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: #7c391e;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  code, pre {
+    font-family: "Consolas", "Courier New", monospace;
+  }
+
+  pre {
+    margin: 10px 0 14px;
+    padding: 12px;
+    border: 1px solid #e8dcc9;
+    border-radius: 14px;
+    background: var(--code);
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .checklist li::marker {
+    color: var(--accent);
+  }
+
+  .quote {
+    margin: 12px 0;
+    padding: 12px 14px;
+    border-left: 4px solid var(--accent);
+    background: #fff7ef;
+    font-size: 14px;
+  }
+
+  .footer-note {
+    margin-top: 18px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <section class="page">
+    <div class="hero">
+      <div class="eyebrow">Step 2 Study Pack</div>
+      <h1>6시간 C 언어 다음 단계 학습서</h1>
+      <p>대상: C 기본 문법을 한 번 끝까지 보고, 이제 "이해했다"에서 "직접 구현할 수 있다"로 넘어가려는 재혁님.</p>
+      <p class="muted">핵심 방향: 문법 복습보다 <strong>구현 연습, 디버깅 습관, 자료구조 감각</strong>을 만드는 6시간.</p>
+    </div>
+
+    <h2>이 PDF의 목표</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>목표 1</h3>
+        <p>배운 문법을 문제 풀이 코드에 연결한다.</p>
+      </div>
+      <div class="card">
+        <h3>목표 2</h3>
+        <p>배열, 포인터, 구조체, 함수가 어떻게 함께 쓰이는지 익힌다.</p>
+      </div>
+      <div class="card">
+        <h3>목표 3</h3>
+        <p>Linked List, Stack/Queue, Tree 문제를 읽고 겁먹지 않게 만든다.</p>
+      </div>
+      <div class="card">
+        <h3>목표 4</h3>
+        <p>컴파일 에러와 런타임 오류를 스스로 좁혀가는 흐름을 익힌다.</p>
+      </div>
+    </div>
+
+    <h2>6시간 전체 흐름</h2>
+    <div class="timeline">
+      <div class="slot">
+        <div class="hour">1시간차</div>
+        <p><strong>문법을 손으로 다시 연결하기</strong>: 변수, 함수, 배열, 포인터, 구조체를 짧은 코드로 다시 써본다.</p>
+      </div>
+      <div class="slot">
+        <div class="hour">2시간차</div>
+        <p><strong>포인터와 구조체 체감</strong>: 주소, 역참조, <code>struct</code>, <code>-&gt;</code> 연산자에 익숙해진다.</p>
+      </div>
+      <div class="slot">
+        <div class="hour">3시간차</div>
+        <p><strong>Linked List 입문</strong>: 노드를 만들고 연결하고 순회한다.</p>
+      </div>
+      <div class="slot">
+        <div class="hour">4시간차</div>
+        <p><strong>Stack / Queue 구현 감각</strong>: 배열 기반과 연결 리스트 기반 차이를 맛본다.</p>
+      </div>
+      <div class="slot">
+        <div class="hour">5시간차</div>
+        <p><strong>Tree 읽는 힘</strong>: 재귀를 완벽히 하지 못해도 노드 구조를 이해하고 순회를 따라간다.</p>
+      </div>
+      <div class="slot">
+        <div class="hour">6시간차</div>
+        <p><strong>실전 연결</strong>: 현재 저장소 문제 파일을 열고, 한 문제를 끝까지 풀어본다.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">권장 폴더: <code>practice</code>에서 작은 예제를 따로 만들고, 이후 <code>Data-Structures</code> 문제 파일로 넘어간다.</div>
+  </section>
+
+  <section class="page">
+    <h2>1시간차: 문법을 구현으로 다시 묶기</h2>
+    <p>여기서는 "안다"가 아니라 "바로 쓸 수 있다"를 목표로 합니다. 각 항목을 10분 내외로 짧게 돌리세요.</p>
+
+    <h3>연습 1. 함수와 반환값</h3>
+    <pre><code>int add(int a, int b) {
+    return a + b;
+}</code></pre>
+    <ul class="checklist">
+      <li>함수 선언과 호출을 직접 3번 써본다.</li>
+      <li><code>return</code>이 없으면 어떤 일이 생기는지 말로 설명해본다.</li>
+      <li>입력 2개, 반환 1개 구조를 익힌다.</li>
+    </ul>
+
+    <h3>연습 2. 배열과 반복문</h3>
+    <pre><code>int arr[5] = {1, 2, 3, 4, 5};
+for (int i = 0; i &lt; 5; i++) {
+    printf("%d\n", arr[i]);
+}</code></pre>
+    <ul class="checklist">
+      <li><code>i++</code>, <code>i += 2</code>를 각각 써본다.</li>
+      <li>배열 길이와 인덱스 차이를 말로 구분한다.</li>
+      <li>오프바이원 실수를 직접 한 번 경험해보고 고쳐본다.</li>
+    </ul>
+
+    <h3>연습 3. 구조체</h3>
+    <pre><code>struct Student {
+    int id;
+    int score;
+};</code></pre>
+    <ul class="checklist">
+      <li>구조체는 "관련된 값을 하나로 묶는 틀"이라고 설명할 수 있어야 한다.</li>
+      <li><code>s.id</code>, <code>s.score</code> 값을 출력해본다.</li>
+      <li>구조체 전체를 한 번에 출력하지 못하고 멤버별로 출력한다는 점을 기억한다.</li>
+    </ul>
+
+    <div class="quote">체크 질문: 배열, 포인터, 구조체가 각각 무엇을 저장하는지 재혁님 말로 설명할 수 있으면 1시간차는 성공입니다.</div>
+  </section>
+
+  <section class="page">
+    <h2>2시간차: 포인터를 진짜로 이해하기</h2>
+    <p>자료구조는 결국 "주소를 저장하고 따라가는 기술"입니다. 포인터를 넘기지 못하면 Linked List도 막힙니다.</p>
+
+    <h3>핵심 개념</h3>
+    <ul>
+      <li><code>int x = 10;</code>: 값 저장</li>
+      <li><code>int* p = &amp;x;</code>: x의 주소 저장</li>
+      <li><code>*p</code>: 그 주소가 가리키는 실제 값 접근</li>
+    </ul>
+
+    <h3>필수 예제</h3>
+    <pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int x = 10;
+    int* p = &amp;x;
+
+    printf("x = %d\n", x);
+    printf("&amp;x = %p\n", (void*)&amp;x);
+    printf("p = %p\n", (void*)p);
+    printf("*p = %d\n", *p);
+
+    *p = 20;
+    printf("x = %d\n", x);
+    return 0;
+}</code></pre>
+
+    <h3>여기서 꼭 느껴야 하는 것</h3>
+    <ul class="checklist">
+      <li><code>p</code>와 <code>*p</code>는 완전히 다르다.</li>
+      <li><code>p</code>는 주소, <code>*p</code>는 실제 값이다.</li>
+      <li>값을 직접 바꾸지 않아도 포인터를 통해 바꿀 수 있다.</li>
+    </ul>
+
+    <h3>실수 포인트</h3>
+    <ul>
+      <li>초기화 안 된 포인터 사용</li>
+      <li><code>NULL</code> 체크 없이 접근</li>
+      <li>주소와 값 개념 섞기</li>
+    </ul>
+
+    <div class="quote">목표: "주소를 따라가서 값을 바꾼다"는 말을 예제 없이도 설명할 수 있으면 다음 단계로 넘어가면 됩니다.</div>
+  </section>
+
+  <section class="page">
+    <h2>3시간차: Linked List를 직접 손으로 만들기</h2>
+    <p>이 단계에서 재혁님은 "배열과 다르게, 연결 리스트는 다음 칸이 아니라 다음 노드의 주소로 이동한다"는 감각만 제대로 잡으면 됩니다.</p>
+
+    <h3>노드 구조</h3>
+    <pre><code>struct Node {
+    int data;
+    struct Node* next;
+};</code></pre>
+
+    <h3>가장 작은 예제</h3>
+    <pre><code>struct Node* head = NULL;
+struct Node* second = NULL;
+struct Node* third = NULL;
+
+head = (struct Node*)malloc(sizeof(struct Node));
+second = (struct Node*)malloc(sizeof(struct Node));
+third = (struct Node*)malloc(sizeof(struct Node));
+
+head-&gt;data = 10;
+head-&gt;next = second;
+
+second-&gt;data = 20;
+second-&gt;next = third;
+
+third-&gt;data = 30;
+third-&gt;next = NULL;</code></pre>
+
+    <h3>이 시간의 연습 순서</h3>
+    <ol>
+      <li>3개 노드 연결하기</li>
+      <li><code>while (current != NULL)</code>로 출력하기</li>
+      <li>맨 앞 노드 1개 더 추가해보기</li>
+      <li>맨 끝에 노드 추가해보기</li>
+    </ol>
+
+    <h3>재혁님이 꼭 말할 수 있어야 하는 문장</h3>
+    <ul class="checklist">
+      <li>Linked List는 각 노드가 다음 노드의 주소를 저장하는 구조다.</li>
+      <li><code>head</code>는 첫 노드를 가리킨다.</li>
+      <li><code>current = current-&gt;next;</code>는 다음 노드로 이동하는 코드다.</li>
+    </ul>
+
+    <div class="quote">추천 연결 파일: 저장소의 Linked List 폴더 첫 문제를 열고, 이미 있는 코드 틀을 읽어보세요. "이 함수는 head를 어디서 받고 어디를 바꾸는가?"만 봐도 공부가 됩니다.</div>
+  </section>
+
+  <section class="page">
+    <h2>4시간차: Stack / Queue는 결국 규칙이 다른 저장 구조</h2>
+    <p>자료구조를 처음 배울 때는 "새로운 마법"처럼 보이지만, 실제로는 <strong>넣는 규칙과 빼는 규칙</strong>이 다른 것뿐입니다.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Stack</h3>
+        <p>나중에 들어간 것이 먼저 나온다. LIFO.</p>
+      </div>
+      <div class="card">
+        <h3>Queue</h3>
+        <p>먼저 들어간 것이 먼저 나온다. FIFO.</p>
+      </div>
+    </div>
+
+    <h3>배열 기반 Stack 예제 틀</h3>
+    <pre><code>int stack[100];
+int top = -1;
+
+void push(int x) {
+    top++;
+    stack[top] = x;
+}
+
+int pop(void) {
+    int value = stack[top];
+    top--;
+    return value;
+}</code></pre>
+
+    <h3>이 시간 목표</h3>
+    <ul class="checklist">
+      <li><code>top</code>, <code>front</code>, <code>rear</code>가 어떤 뜻인지 구분한다.</li>
+      <li>push/pop, enqueue/dequeue를 손으로 따라가 본다.</li>
+      <li>배열 버전과 Linked List 버전 차이를 말로 설명해본다.</li>
+    </ul>
+
+    <h3>권장 미션</h3>
+    <ul>
+      <li>숫자 3개를 push 후 pop 결과 예상하기</li>
+      <li>숫자 3개를 enqueue 후 dequeue 결과 예상하기</li>
+      <li>비어 있을 때 pop/dequeue 하면 어떻게 처리할지 직접 정해보기</li>
+    </ul>
+  </section>
+
+  <section class="page">
+    <h2>5시간차: Tree와 재귀를 두려워하지 않기</h2>
+    <p>Tree는 "노드 하나가 자식 포인터를 여러 개 가질 수 있다"로 이해하면 됩니다. 완벽한 재귀 구현보다 구조 읽기가 먼저입니다.</p>
+
+    <h3>기본 구조 예시</h3>
+    <pre><code>struct TreeNode {
+    int data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};</code></pre>
+
+    <h3>핵심 관찰 포인트</h3>
+    <ul class="checklist">
+      <li>Linked List의 <code>next</code> 하나가 Tree에서는 <code>left</code>, <code>right</code> 두 개로 늘어난 느낌이다.</li>
+      <li>루트, 왼쪽 자식, 오른쪽 자식 개념을 그림으로 그릴 수 있어야 한다.</li>
+      <li>순회는 "현재 노드에서 무엇을 하고 어느 방향으로 갈지"의 규칙이다.</li>
+    </ul>
+
+    <h3>재귀를 볼 때 질문할 것</h3>
+    <ol>
+      <li>이 함수는 언제 멈추는가?</li>
+      <li>현재 노드에서 무엇을 처리하는가?</li>
+      <li>왼쪽과 오른쪽 중 어디로 다시 호출하는가?</li>
+    </ol>
+
+    <pre><code>void preorder(struct TreeNode* node) {
+    if (node == NULL) return;
+    printf("%d\n", node-&gt;data);
+    preorder(node-&gt;left);
+    preorder(node-&gt;right);
+}</code></pre>
+
+    <div class="quote">재혁님 단계에서는 재귀를 완벽히 외우기보다, "멈추는 조건"과 "다음 호출 방향" 두 가지만 놓치지 않는 게 더 중요합니다.</div>
+  </section>
+
+  <section class="page">
+    <h2>6시간차: 현재 저장소 문제로 바로 연결하기</h2>
+    <p>이제 연습용 작은 파일에서 벗어나 실제 문제 파일로 들어갑니다. 여기서 중요한 건 한 문제를 다 맞히는 것보다 <strong>코드 흐름을 읽고 한 칸씩 수정하는 힘</strong>입니다.</p>
+
+    <h3>추천 진입 순서</h3>
+    <ol>
+      <li>Linked List 첫 문제 파일 열기</li>
+      <li>입력/출력 형식보다 함수 역할부터 읽기</li>
+      <li>주어진 틀에서 비어 있는 부분만 채우기</li>
+      <li>작은 입력으로 직접 테스트</li>
+      <li>출력이 틀리면 print 디버깅으로 좁히기</li>
+    </ol>
+
+    <h3>문제 읽을 때 체크리스트</h3>
+    <ul class="checklist">
+      <li>입력은 몇 번 들어오는가?</li>
+      <li>반복문은 언제까지 돌아야 하는가?</li>
+      <li>배열로 할지, 포인터/구조체로 할지 어떤 구조가 필요한가?</li>
+      <li>반환값이 필요한가, 아니면 포인터를 직접 바꾸는가?</li>
+    </ul>
+
+    <h3>막혔을 때 순서</h3>
+    <ol>
+      <li>컴파일 에러 먼저 1개씩 처리</li>
+      <li>출력값 틀리면 중간 값을 출력</li>
+      <li>포인터면 주소와 값 둘 다 확인</li>
+      <li>마지막 노드나 경계 조건을 다시 본다</li>
+    </ol>
+
+    <h3>오늘 끝나고 남겨야 할 것</h3>
+    <ul>
+      <li>내가 헷갈린 문법 3개</li>
+      <li>직접 구현한 예제 2개</li>
+      <li>스스로 설명 가능해진 개념 1개</li>
+    </ul>
+
+    <div class="quote">6시간 학습의 진짜 성공 기준은 "모르는 걸 다 없앤 상태"가 아니라, "막혀도 어디서부터 봐야 하는지 아는 상태"입니다.</div>
+
+    <div class="footer-note">다음 추천: Linked List 한 문제 완주 → Stack/Queue 한 문제 완주 → Tree 코드 읽기. 이 순서가 현재 재혁님에게 가장 자연스럽습니다.</div>
+  </section>
+</body>
+</html>

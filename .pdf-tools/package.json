@@ -1,0 +1,10 @@
+{
+  "name": "pdf-tools-local",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^2.4.5"
+  }
+}
